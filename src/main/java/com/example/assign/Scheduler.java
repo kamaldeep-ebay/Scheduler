@@ -50,7 +50,8 @@ public class Scheduler {
 				else {
 					System.out.println("Running same job again");
 		 			//Log.warn();
-		 			System.exit(1);
+		 			//System.exit(1);
+					continue;
 				}
 					
 				
@@ -67,7 +68,8 @@ public class Scheduler {
 					else {
 						System.out.println("Running same job again");
 			 			//Log.warn();
-			 			System.exit(1);
+			 			//System.exit(1);
+						continue;
 					}
 					
 					curr=curr.getNext();
