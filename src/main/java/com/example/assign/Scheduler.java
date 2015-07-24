@@ -2,6 +2,7 @@ package com.example.assign;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ForkJoinPool;
 
 import org.codehaus.jackson.JsonParseException;
@@ -33,6 +34,7 @@ public class Scheduler {
 		graph = ParseJSON.getObjects();
 		
 		runFirst();
+		HashMap<Integer,Integer> visited = new HashMap<Integer,Integer>();
 		
 		for( int i=1;i<graph.headids.size();i++){
 			
@@ -40,13 +42,34 @@ public class Scheduler {
 			ListNode node = graph.headids.get(i);
 			if(node.getNext().getNext()==null){
 				
-				ids.add(node.getNext().getData()); 
+				int id = node.getNext().getData();
+				if(!visited.containsKey(id)){
+					ids.add(id);
+					visited.put(id, 0);
+				}
+				else {
+					System.out.println("Running same job again");
+		 			//Log.warn();
+		 			System.exit(1);
+				}
+					
 				
 			}else{
 				
 				ListNode curr = node.getNext();
 				while(curr.getNext()!=null){
-					ids.add(curr.getData());
+					int id = curr.getData();
+					
+					if(!visited.containsKey(id)){
+						ids.add(id);
+						visited.put(id, 0);
+					}
+					else {
+						System.out.println("Running same job again");
+			 			//Log.warn();
+			 			System.exit(1);
+					}
+					
 					curr=curr.getNext();
 				}
 				ids.add(curr.getData());

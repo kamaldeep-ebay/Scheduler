@@ -63,10 +63,16 @@ public class ParseJSON {
 	 	}
 			
 	 	Graph g = new Graph();
-	 	for(Edge e:edges){
-	 		
-	 		g.addNode(e.getSrc(), e.getDest());
-	 	}
+	 	/*if(g.isCircle(map.size(), edges)){
+	 		System.out.println("Detected cycle in the process graph .. Exiting");
+	 		//Log.warn()
+	 		System.exit(1);
+	 	}else{*/
+	 		for(Edge e:edges){
+		 		g.addNode(e.getSrc(), e.getDest());
+		 	}
+	 	//}
+	 	
 		//g.printGraph();
 	 	
 	 	return g;
