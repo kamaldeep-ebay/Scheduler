@@ -5,10 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.graphstream.graph.implementations.AdjacencyListGraph;
+
+
 /*import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 */
@@ -23,7 +27,8 @@ public class ParseJSON {
 	static ArrayList<Edge> edges;
 	
 	//public static HashMap<String,ArrayList<Job>> getObjects() throws JsonParseException, JsonMappingException, IOException{
-	public static Graph getObjects() throws JsonParseException, JsonMappingException, IOException {
+	//public static Graph getObjects() throws JsonParseException, JsonMappingException, IOException {
+	public static AdjacencyListGraph getObjects() throws JsonParseException, JsonMappingException, IOException {
 	ObjectMapper mapper = new ObjectMapper();
 	
 	File file = new File(TestJSON.class.getClassLoader().getResource("test.json").getFile());
@@ -61,20 +66,37 @@ public class ParseJSON {
 	 			map.put(job.getParent(), ar);
 	 		}*/
 	 	}
-			
-	 	Graph g = new Graph();
-	 	/*if(g.isCircle(map.size(), edges)){
+		
+	 	/*Graph g = new Graph();
+	 	for(Edge e:edges){
+	 		g.addNode(e.getSrc(), e.getDest());
+	 	}*/
+	 	
+	 	AdjacencyListGraph graph = new AdjacencyListGraph("scheduler");
+		for(Map.Entry<String, String> entry:map.entrySet()){
+			graph.addNode(entry.getKey());
+		}
+		graph.addNode("-1");
+		for(Edge e:edges){
+			String src = String.valueOf(e.getSrc());
+			String dst = String.valueOf(e.getDest());
+			graph.addEdge(src.concat(dst),src,dst);
+		}
+		
+		/*Graph g = new Graph();
+	 	if(g.isCircle(map.size(), edges)){
 	 		System.out.println("Detected cycle in the process graph .. Exiting");
 	 		//Log.warn()
 	 		System.exit(1);
-	 	}else{*/
+	 	}else{
 	 		for(Edge e:edges){
 		 		g.addNode(e.getSrc(), e.getDest());
 		 	}
-	 	//}
+	 	}*/
 	 	
 		//g.printGraph();
 	 	
-	 	return g;
+	 	//return g;
+		return graph;
 	}
 }

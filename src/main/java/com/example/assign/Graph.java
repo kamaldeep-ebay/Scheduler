@@ -3,6 +3,14 @@ package com.example.assign;
 
 import java.util.ArrayList;
 
+import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.AdjacencyListGraph;
+import org.graphstream.graph.implementations.AdjacencyListNode;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
+
 public class Graph {
 
 	ArrayList<ListNode> headids;
@@ -107,10 +115,52 @@ public class Graph {
 	    }
 	  }
 
-	 /* public static void main(String[] args) {
+	 public static void main(String[] args) {
 		    // TODO Auto-generated method stub
 		   
-		  Graph g = new Graph(); 
+		 AdjacencyListGraph graph = new AdjacencyListGraph("first");
+		   graph.addNode("A");
+           graph.addNode("B");
+           graph.addNode("C");graph.addNode("D");graph.addNode("E");
+           graph.addEdge("AB", "A", "B");
+           graph.addEdge("BC", "B", "C");
+           graph.addEdge("CA", "C", "A");
+           graph.addEdge("AD", "A", "D");graph.addEdge("DB", "D", "B");
+           
+           for (Node e :graph.getNodeSet()){
+        	   StringBuffer strbuf = new StringBuffer();
+        	   for(org.graphstream.graph.Edge ed:e.getEachEdge()){
+        		   if(!ed.getTargetNode().toString().equals(e.toString()))
+        		   strbuf.append(ed.getTargetNode().toString());
+        	   }
+        	   System.out.println(strbuf.toString());
+           }
+           //System.out.println(e.toString());
+           //graph.display();
+           
+		/* UndirectedGraph<String, DefaultEdge> g =
+		            new SimpleGraph<String, DefaultEdge>(DefaultEdge.class);
+
+		        String v1 = "v1";
+		        String v2 = "v2";
+		        String v3 = "v3";
+		        String v4 = "v4";
+
+		        // add the vertices
+		        g.addVertex(v1);
+		        g.addVertex(v2);
+		        g.addVertex(v3);
+		        g.addVertex(v4);
+
+		        // add edges to create a circuit
+		        g.addEdge(v1, v2);
+		        g.addEdge(v2, v3);g.addEdge(v2, v4);
+		        g.addEdge(v3, v4);
+		        g.addEdge(v4, v1);
+
+		        System.out.println(g.toString());*/
+		       		 
+		 /* 	  Graph g = new Graph(); 
 		    
 		    g.addNode( 0, 1);
 		    g.addNode( 0, 4);
@@ -130,7 +180,7 @@ public class Graph {
 		  ArrayList<Edge> ar = new ArrayList<Edge>();
 		  ar.add(e1);ar.add(e2);ar.add(e3);ar.add(e4);
 		  
-		  System.out.println(g.isCircle(5, ar));
-	  }*/
+		  System.out.println(g.isCircle(5, ar));*/
+	  }
 	  
 }
